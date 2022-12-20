@@ -25,7 +25,7 @@ bot.launch();
 
 const job = new CronJob('* * * * *', () => {
   const now = new Date();
-  const newYear = new Date(process.env.YEAR, 0);
+  const newYear = new Date(now.getFullYear() + 1, 0);
   const remainingTime = Math.floor(
     (newYear.getTime() - now.getTime()) / (1000 * 60),
   );
