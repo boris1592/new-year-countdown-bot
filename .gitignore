@@ -128,3 +128,6 @@ dist
 
 # IDE 
 .vscode/*
+
+# Data
+data.json
