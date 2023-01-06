@@ -15,6 +15,10 @@ function saveData() {
   writeFileSync('data.json', JSON.stringify(chatMessages));
 }
 
+function addLeadingZeros(number, totalLength) {
+  return String(number).padStart(totalLength, '0');
+}
+
 const bot = new Telegraf(process.env.TOKEN);
 
 bot.command('start_countdown', async (ctx) => {
