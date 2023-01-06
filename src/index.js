@@ -8,14 +8,11 @@ if (!existsSync('data.json')) {
 }
 
 config();
+const botConfig = JSON.parse(readFileSync('config.json').toString());
 const chatMessages = JSON.parse(readFileSync('data.json').toString());
 
 function saveData() {
   writeFileSync('data.json', JSON.stringify(chatMessages));
-}
-
-function addLeadingZeros(number, totalLength) {
-  return String(number).padStart(totalLength, '0');
 }
 
 const bot = new Telegraf(process.env.TOKEN);
@@ -36,7 +33,7 @@ bot.launch();
 
 const job = new CronJob('* * * * *', () => {
   const now = new Date();
-  const newYear = new Date(now.getFullYear() + 1, 0);
+  const newYear = new Date(botConfig.year, botConfig.monthIndex);
   const remainingTime = Math.floor(
     (newYear.getTime() - now.getTime()) / (1000 * 60),
   );
@@ -44,7 +41,7 @@ const job = new CronJob('* * * * *', () => {
   const days = addLeadingZeros(Math.floor(remainingTime / 60 / 24), 2);
   const hours = addLeadingZeros(Math.floor((remainingTime / 60) % 24), 2);
   const minutes = addLeadingZeros(remainingTime % 60, 2);
-  const message = `До нового года осталось: ${days}:${hours}:${minutes}`;
+  const message = botConfig.message + `${days}:${hours}:${minutes}`;
   const toRemove = [];
 
   for (const chatId in chatMessages) {
