@@ -37,7 +37,7 @@ bot.launch();
 
 const job = new CronJob('* * * * *', () => {
   const now = new Date();
-  let year = now.year;
+  let year = now.getFullYear();
   let remainingTime = -1;
 
   while (remainingTime < 0) {
