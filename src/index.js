@@ -37,10 +37,16 @@ bot.launch();
 
 const job = new CronJob('* * * * *', () => {
   const now = new Date();
-  const newYear = new Date(botConfig.year, botConfig.monthIndex);
-  const remainingTime = Math.floor(
-    (newYear.getTime() - now.getTime()) / (1000 * 60),
-  );
+  let year = now.year;
+  let remainingTime = -1;
+
+  while (remainingTime < 0) {
+    remainingTime = Math.floor(
+      (new Date(year, botConfig.monthIndex).getTime() - now.getTime()) /
+        (1000 * 60),
+    );
+    year += 1;
+  }
 
   const days = addLeadingZeros(Math.floor(remainingTime / 60 / 24), 2);
   const hours = addLeadingZeros(Math.floor((remainingTime / 60) % 24), 2);
