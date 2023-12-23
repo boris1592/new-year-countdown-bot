@@ -127,4 +127,4 @@ dist
 .pnp.*
 
 # Lowdb
-db.json
+messages.json
