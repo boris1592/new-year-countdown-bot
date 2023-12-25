@@ -63,14 +63,10 @@ export default class Countdown {
       (newYearDate.getTime() - now.getTime()) / 1000 / 60,
     );
 
-    const days = Countdown.addZeroes(Math.floor(diff / 60 / 24));
-    const hours = Countdown.addZeroes(Math.floor(diff / 60) % 24);
-    const minutes = Countdown.addZeroes(diff % 60);
+    const days = Math.floor(diff / 60 / 24);
+    const hours = Math.floor(diff / 60) % 24;
+    const minutes = diff % 60;
 
-    return `До нового года осталось ${days}:${hours}:${minutes}`;
-  }
-
-  static addZeroes(number) {
-    return number.toString().padStart(2, "0");
+    return `До нового года ${days} д ${hours} ч ${minutes} мин`;
   }
 }
